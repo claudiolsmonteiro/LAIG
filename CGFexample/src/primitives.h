@@ -68,12 +68,13 @@ public:
 	Torus();
     Torus(float i, float o, int sl, int l);
 	float getInner();
-	float getOutter();
+	float getOuter();
 	int getSlices();
 	int getLoops();
+	void DrawTorus();
     ~Torus();
 private:
-	float inner, outter;
+	float inner, outer;
 	int slices, loops;
 };
 

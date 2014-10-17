@@ -92,6 +92,9 @@ void DemoScene::processNode(char *nodeid){
 				}
 			}
 			else if(parser->getGraph().getNodes()[i].getPrimitives()[j].getType() == "torus" ) {
+				Torus to = parser->getGraph().getNodes()[i].getPrimitives()[j].getTorus();
+
+				to.DrawTorus();
 			}
 
 		}

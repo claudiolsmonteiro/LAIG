@@ -26,6 +26,7 @@
     <ClCompile Include="src\tinyxml.cpp" />
     <ClCompile Include="src\tinyxmlerror.cpp" />
     <ClCompile Include="src\tinyxmlparser.cpp" />
+    <ClCompile Include="src\Torus.cpp" />
     <ClCompile Include="src\XMLScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -41,6 +42,7 @@
     <ClInclude Include="src\SceneGraph.h" />
     <ClInclude Include="src\tinystr.h" />
     <ClInclude Include="src\tinyxml.h" />
+    <ClInclude Include="src\Torus.h" />
     <ClInclude Include="src\XMLScene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

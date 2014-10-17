@@ -1,0 +1,29 @@
+﻿Build started 18/10/2014 00:26:05.
+     1>Project "C:\Users\Claudio\Documents\GitHub\LAIG\CGFexample\CGFexample.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"..\buildtemp\CGFexample\\" /Fd"..\buildtemp\CGFexample\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt src\primitives.cpp
+         primitives.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"bin\CGFexample.exe" /INCREMENTAL /NOLOGO glew32.lib CGFlib.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"bin\CGFexample.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"bin\CGFexample.lib" /MACHINE:X86 ..\buildtemp\CGFexample\ANFParser.obj
+         ..\buildtemp\CGFexample\ANFScene.obj
+         ..\buildtemp\CGFexample\DemoScene.obj
+         ..\buildtemp\CGFexample\ExampleObject.obj
+         ..\buildtemp\CGFexample\main.obj
+         ..\buildtemp\CGFexample\myLight.obj
+         ..\buildtemp\CGFexample\myTexture.obj
+         ..\buildtemp\CGFexample\Orthocamera.obj
+         ..\buildtemp\CGFexample\Perspective.obj
+         ..\buildtemp\CGFexample\primitives.obj
+         ..\buildtemp\CGFexample\SceneGraph.obj
+         ..\buildtemp\CGFexample\tinystr.obj
+         ..\buildtemp\CGFexample\tinyxml.obj
+         ..\buildtemp\CGFexample\tinyxmlerror.obj
+         ..\buildtemp\CGFexample\tinyxmlparser.obj
+         ..\buildtemp\CGFexample\Torus.obj
+         ..\buildtemp\CGFexample\XMLScene.obj
+         CGFexample.vcxproj -> C:\Users\Claudio\Documents\GitHub\LAIG\CGFexample\bin\CGFexample.exe
+     1>Done Building Project "C:\Users\Claudio\Documents\GitHub\LAIG\CGFexample\CGFexample.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.52

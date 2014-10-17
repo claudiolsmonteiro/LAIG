@@ -765,7 +765,7 @@ ANFParser::ANFParser(char *filename)
 					sphere = sphere->NextSiblingElement("sphere");
 				}
 
-				TiXmlElement *torus=primitives->FirstChildElement("Torus");
+				TiXmlElement *torus=primitives->FirstChildElement("torus");
 				while(torus){
 					float inner, outer;
 					int slices, loops;
@@ -776,10 +776,12 @@ ANFParser::ANFParser(char *filename)
 						printf("inner: %f, outer: %f, slices: %d, loops : %d \n",inner, outer, slices,loops);
 
 					Torus *newTorus = new Torus(inner, outer, slices, loops);
+					printf("inner: %f, outer: %f, slices: %d, loops : %d \n",inner, outer, slices,loops);
+					printf("inner: %f, outer: %f, slices: %d, loops : %d \n",inner, outer, slices,loops);
 					Primitive *newPrimitive = new Primitive(*newTorus);
 					newNode->addPrimitive(*newPrimitive);
 
-					torus = torus->NextSiblingElement("Torus");
+					torus = torus->NextSiblingElement("torus");
 				}
 
 				TiXmlElement *descendants=node->FirstChildElement("descendants");
