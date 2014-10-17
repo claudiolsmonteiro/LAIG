@@ -228,12 +228,12 @@ ANFParser::ANFParser(char *filename)
 		printf("Processing lights:\n");
 		// drawing mode: example of a node with individual attributes
 		TiXmlElement* lightElement=lightsElement->FirstChildElement("light");
+		lightid = GL_LIGHT0;
 		while (lightElement)
 		{
 			char *id=NULL,*type=NULL,*pos, *target=NULL;
 			float lpos[3], ltarget[3], angle, exponent;
 			bool enabled, marker;
-			lightid = GL_LIGHT0;
 
 			id=(char *) lightElement->Attribute("id");
 			if(!id){
@@ -338,6 +338,7 @@ ANFParser::ANFParser(char *filename)
 				newLight->setDiffuse(dif);
 				newLight->setSpecular(spec);
 				newLight->setAngle(angle);
+				newLight->setExponent(exponent);
 			}
 			lights.push_back(*newLight);
 			lightid++;
@@ -475,6 +476,7 @@ ANFParser::ANFParser(char *filename)
 				rootid = "inv";
 			}
 			printf("root id: %s\n",rootid);
+			graph.setRoot(rootid);
 			TiXmlElement *node=graphElement->FirstChildElement("node");
 
 			while (node)
@@ -539,7 +541,7 @@ ANFParser::ANFParser(char *filename)
 							if(!axis && (axis != "x" && axis !="y" && axis !="z")){
 								printf("Invalid axis value. x value will be taken for axis.\n");
 								axis = "x";
-							}//tenho de ir à mesa, tenho a familia toda aqui na minha avó
+							}
 							printf("axis: %s\n",axis);
 							if (transformElement->QueryFloatAttribute("angle",&angle)==TIXML_SUCCESS ){
 							}
@@ -548,7 +550,7 @@ ANFParser::ANFParser(char *filename)
 								angle = 0;
 							}
 							angle = pi * angle /180;
-							if(axis == "z"){
+							if(strcmp(axis,"z") == 0){
 								transform.push_back(cos(angle));
 								transform.push_back(sin(angle));
 								transform.push_back(0);
@@ -566,7 +568,7 @@ ANFParser::ANFParser(char *filename)
 								transform.push_back(0);
 								transform.push_back(1);
 							}
-							else if(axis =="x"){
+							else if(strcmp(axis,"x") == 0){
 								transform.push_back(1);
 								transform.push_back(0);
 								transform.push_back(0);
@@ -584,7 +586,7 @@ ANFParser::ANFParser(char *filename)
 								transform.push_back(0);
 								transform.push_back(1);
 							}
-							else{
+							else if(strcmp(axis,"y") == 0){
 								transform.push_back(cos(angle));
 								transform.push_back(0);
 								transform.push_back(-sin(angle));

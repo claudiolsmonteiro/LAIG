@@ -12,16 +12,20 @@
 #include <stdio.h>
 #include "primitives.h"
 #include <vector>
+#include <map>
 
 class Node{
 public:
+	Node(){};
     Node(char *n);
+	char *getName();
     void addTransform(vector<float> t);
     void addPrimitive(Primitive p);
     void addDescendant(char *d);
 	void setAppearance(char *a);
 	std::vector<Primitive> getPrimitives();
 	std::vector<vector<float> > getTransforms();
+	std::vector<char *> getDescendants();
     ~Node();
 private:
     char *name, *appearance;
@@ -34,6 +38,8 @@ class SceneGraph{
 public:
 	SceneGraph();
     SceneGraph(char *r);
+	void setRoot(char *id);
+	char *getRoot();
     void addNode(Node n);
 	std::vector<Node> getNodes();
     ~SceneGraph();

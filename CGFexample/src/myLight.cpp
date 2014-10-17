@@ -68,6 +68,10 @@ void myLight::setAngle(float a){
 	this->angle = a;
 }
 
+void myLight::setExponent(float e){
+	exponent = e;
+}
+
 float *myLight::getAmbient(){
 	return ambient;
 }
@@ -83,6 +87,10 @@ float *myLight::getSpecular(){
 
 float myLight::getAngle(){
 	return angle;
+}
+
+float myLight::getExponent(){
+	return exponent;
 }
 
 

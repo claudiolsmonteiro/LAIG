@@ -12,6 +12,10 @@
 Node::Node(char *n): name(n){
 }
 
+char *Node::getName(){
+	return name;
+}
+
 void Node::addTransform(vector<float> t){
     this->transforms.push_back(t);
 }
@@ -34,17 +38,30 @@ std::vector<Primitive> Node::getPrimitives(){
 std::vector<vector<float> > Node::getTransforms(){
 	return transforms;
 }
+
+std::vector<char *> Node::getDescendants(){
+	return descendants;
+}
+
 Node::~Node(){
     
 }
 SceneGraph::SceneGraph(){
 }
 SceneGraph::SceneGraph(char *r):root(r){
-    
+   
+}
+
+void SceneGraph::setRoot(char *id){
+	this->root = id;
+}
+
+char *SceneGraph::getRoot(){
+	return root;
 }
 
 void SceneGraph::addNode(Node n){
-    nodes.push_back(n);
+	nodes.push_back(n);
 }
 
 std::vector<Node> SceneGraph::getNodes(){

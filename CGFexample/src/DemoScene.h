@@ -10,6 +10,7 @@ public:
 	void init();
 	void display();
 	void update(unsigned long t);
+	void processNode(char *nodeid);
 	~DemoScene();
 private:
 	ANFParser *parser;

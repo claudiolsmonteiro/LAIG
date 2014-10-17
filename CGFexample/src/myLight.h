@@ -24,17 +24,19 @@ public:
 	void setDiffuse(float *dif);
 	void setSpecular(float *spec);
 	void setAngle(float a);
+	void setExponent(float e);
 	float *getAmbient();
 	float *getDiffuse();
 	float *getSpecular();
 	float getAngle();
+	float getExponent();
     bool isEnabled();
     bool isMarked();
     ~myLight();
     
 private:
     char *name;
-	float position[3], direction[3], ambient[4], diffuse[4], specular[4], angle;
+	float position[3], direction[3], ambient[4], diffuse[4], specular[4], angle, exponent;
     bool enabled, marked;
 	unsigned int id;
 };
