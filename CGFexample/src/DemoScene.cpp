@@ -215,9 +215,18 @@ void DemoScene::init()
 			newLight->setAngle(parser->getLights()[i].getAngle());
 		}
 
-		if(parser->getLights()[i].isEnabled())
-			newLight->enable();
 
+        if(parser->getLights()[i].isEnabled()) {
+            enabledlights.push_back(1);
+            newLight->enable();
+        }
+        else {
+            newLight->disable();
+            enabledlights.push_back(0);
+        }
+
+        
+        lightnames.push_back(parser->getLights()[i].getName());
 		sceneLights.push_back(newLight);
 	}
 
@@ -259,8 +268,8 @@ void DemoScene::display()
 	for(unsigned int  i = 0; i < parser->getLights().size(); i++){
 		if(parser->getLights()[i].isMarked())
 			sceneLights[i]->draw();
-	}
 
+	}
 	// Draw axis
 	axis.draw();
 
@@ -293,6 +302,32 @@ void DemoScene::display()
 	glutSwapBuffers();
 }
 
+void DemoScene::toggleLights(int l, int s){
+    if(s == 1) {
+        sceneLights[l]->disable();
+        enabledlights[l]=0;
+    }
+    else {
+        sceneLights[l]->enable();
+        enabledlights[l]=1;
+    }
+    sceneLights[l]->update();
+}
+
+ANFParser DemoScene::getParser(){
+    return *parser;
+}
+
+vector<CGFlight *> DemoScene::getSceneLights() {
+    return sceneLights;
+}
+vector<char*> DemoScene::getLightnames() {
+    return lightnames;
+}
+
+vector<int> DemoScene::getEnabledlights() {
+    return enabledlights;
+}
 DemoScene::~DemoScene()
 {
 	delete(shader);
