@@ -22,32 +22,35 @@ void TPinterface::initGUI()
 	// Check CGFinterface.h and GLUI documentation for the types of controls available
 	GLUI_Panel *lightPanel= addPanel("Lights", 1);
     for(int i = 0; i < ((DemoScene*) scene)->getSceneLights().size(); i++) {
-        addCheckboxToPanel(lightPanel, ((DemoScene*) scene)->getLightnames()[i], &(((DemoScene*) scene)->getEnabledlights()[i]), i);
-        printf("LIGHT NAME : %s, ENABLED LIGHTS: %d, I : %d\n\n\n\n",((DemoScene*) scene)->getLightnames()[i], (((DemoScene*) scene)->getEnabledlights()[i]), i);
+		if(((DemoScene*) scene)->getEnabledlights()[i]==0)
+			addCheckboxToPanel(lightPanel, ((DemoScene*) scene)->getLightnames()[i], NULL, i)->set_int_val(1);
+		else{
+			addCheckboxToPanel(lightPanel, ((DemoScene*) scene)->getLightnames()[i], NULL, i)->set_int_val(0);
+		}
     }
 	addColumn();
     
-    /*
-    addStaticText("Cameras");
-    GLUI_RadioGroup *CameraViewMode = addRadioGroup(&(((DemoScene*) scene)->viewMode), 7);
 
-	addColumn();
-	addStaticText("Drawing View mode");
-	GLUI_RadioGroup *DrawingViewMode = addRadioGroup(&(((DemoScene*) scene)->viewMode), 7);
-	addRadioButtonToGroup(DrawingViewMode, "Wireframe");
-	addRadioButtonToGroup(DrawingViewMode, "Fill");
+	GLUI_Panel *DrawPanel = addPanel("Draw Mode", 1);
+	GLUI_RadioGroup *drawtype = addRadioGroupToPanel(DrawPanel,&(((DemoScene*) scene)->drawMode),((DemoScene*) scene)->getSceneLights().size());
+	addRadioButtonToGroup(drawtype, "Fill");
+	addRadioButtonToGroup(drawtype, "Point");
+	addRadioButtonToGroup(drawtype, "Wireframe");
 	
-	// You could also pass a reference to a variable from the scene class, if public
-	//addSpinnerToPanel(varPanel, "Val 2(scene)", 2, &(((DemoScene*) scene)->sceneVar), 2);
-*/
+	addColumn();
+
+	GLUI_Panel *CameraPanel = addPanel("Cameras", 1);
+	/*for(int i = 0; i < ((DemoScene*) scene)->getParser().getCameras().size(); i++) {
+		addCheckboxToPanel(lightPanel, ((DemoScene*) scene)->getParser().getCameras()[i]., NULL, i)
+    }*/
 }
 
 void TPinterface::processGUI(GLUI_Control *ctrl)
 {
     if(ctrl->user_id < ((DemoScene*) scene)->getSceneLights().size()) {
         ((DemoScene*) scene)->toggleLights(ctrl->user_id, (((DemoScene*) scene)->getEnabledlights()[ctrl->user_id]));
-        printf("ENABLED LIGHTS: %d, I : %d\n\n\n\n",(((DemoScene*) scene)->getEnabledlights()[ctrl->user_id]), ctrl->user_id);
     }
-	
+	if(ctrl->user_id == ((DemoScene*) scene)->getSceneLights().size())
+		((DemoScene*) scene)->drawMode = ctrl->get_int_val();
 }
 
