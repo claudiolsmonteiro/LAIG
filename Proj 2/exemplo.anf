@@ -1,0 +1,388 @@
+<anf>
+
+    <!-- bloco de configuracoes globais -->
+    <!-- a declaracao dos componentes deste bloco e' obrigatoria --> 
+    <globals>
+        <!-- Parametros de desenho -->
+        <!-- Valores para mode: "fill" , "line", "point" -->
+        <!-- Valores para shading: "flat", "gouraud" ) -->
+        <drawing mode="line" shading="gouraud" background="0.5 0.5 0.5 0.7" />
+ 
+        <!-- Parametros de culling -->
+        <!-- Valores para cullface: "none", "back" , "front" ou "both" -->
+        <!-- Valores para cullorder : "ccw" ou "cw" -->
+        <culling face="front" order="cw" />
+ 
+        <!-- Parametros de iluminacao; seguem os parametros do OpenGL  -->
+        <lighting doublesided="True" local="True" enabled="True" ambient="0.5 0.5 0.5 1.0" />
+ 
+    </globals>
+    
+    <!-- bloco de camaras: o atributo "initial" identifica a camara/ponto de vista inicial, que tem de existir -->
+    <cameras initial="ss" >
+        <!-- tem de existir, pelo menos uma camara dos tipos seguintes (perspective ou ortho) -->
+        <!-- no caso da camara ortho, o atributo "direction" define o eixo segundo o qual se efetua a projecao -->
+
+        <perspective id="s1" near="2.0" far="1.9" angle="2.3" pos="1.0 2.3 4.13" target="1.2 2.5 4.23" />
+        <ortho id="s2" direction="x" near="1.0" far="2.0" left="1.5" right="3.2" top="1.2" bottom="4.0" />
+    </cameras>
+  
+
+    <!-- bloco de luzes -->
+	<lights>		
+	
+		<light id="GL_LIGHT0" type="spot" enabled="false" marker="true" pos="2.0 8.0 2.0" target="0.5 0.5 0.5"  
+                angle="90" exponent="0" >
+             <component type="ambient" value="0.3 0.3 0.3 0.7"/>
+			<component type="diffuse" value="0.6 0.6 0.6 0.7"/>
+			<component type="specular" value="0.0 0.0 0.0 0.7"/>
+		</light>
+		
+		<light id="GL_LIGHT1" type="omni" enabled="true" marker="true" pos="4.0 8.0 2.0">
+			<component type="ambient" value="0.3 0.3 0.3 0.7"/>
+			<component type="diffuse" value="0.6 0.6 0.6 0.7"/>
+			<component type="specular" value="0.0 0.0 0.0 0.7"/>
+		</light>
+		
+		<light id="GL_LIGHT2" type="omni" enabled="false" marker="true" pos="6.0 8.0 2.0">
+			<component type="ambient" value="0.3 0.3 0.3 0.7"/>
+			<component type="diffuse" value="0.5 0.5 0.5 0.7"/>
+			<component type="specular" value="0.0 0.0 0.0 0.7"/>
+		</light>
+    
+	</lights>
+
+    <!-- bloco de texturas. Este bloco tem de existir mas pode estar vazio, se nao forem usadas texturas -->
+    <!--   ver topico 'Notas finais' no enunciado sobre os parametros texlength_... -->
+    <textures>    
+		<texture id="wall" file="wall.png" texlength_s="16.0" texlength_t="8.0" />
+		<texture id="table" file="table.png" texlength_s="2.0" texlength_t="2.0" />
+		<texture id="floor" file="floor.png" texlength_s="2.0" texlength_t="2.0" />
+		<texture id="basket" file="basket.jpg" texlength_s="2.0" texlength_t="2.0" />
+		<texture id="azul" file="azul.jpg" texlength_s="2.0" texlength_t="2.0" />
+    </textures>
+
+    <!-- bloco de materiais; -->
+    <appearances>
+        <!-- deve existir um ou mais blocos "appearance" -->
+        <!-- IMPORTANTE: -->
+        <!--   textureref e opcional, a utilizar caso haja textura associada a esta aparencia --> 
+        <appearance id="wall" shininess="1.0" textureref="wall" >
+               <component type="ambient" value="0.3 0.3 0.3 0.5" />
+               <component type="diffuse" value="0.5 0.5 0.5 0.5" />
+               <component type="specular" value="0.3 0.3 0.3 0.5" />
+        </appearance>
+		<appearance id="table" shininess="1.0" textureref="table" >
+               <component type="ambient" value="0.3 0.3 0.3 0.5" />
+               <component type="diffuse" value="0.5 0.5 0.5 0.5" />
+               <component type="specular" value="0.3 0.3 0.3 0.5" />
+        </appearance>
+		<appearance id="floor" shininess="1.0" textureref="floor" >
+               <component type="ambient" value="0.3 0.3 0.3 0.5" />
+               <component type="diffuse" value="0.5 0.5 0.5 0.5" />
+               <component type="specular" value="0.3 0.3 0.3 0.5" />
+        </appearance>
+		<appearance id="basket" shininess="1.0" textureref="basket" >
+               <component type="ambient" value="0.3 0.3 0.3 0.5" />
+               <component type="diffuse" value="0.5 0.5 0.5 0.5" />
+               <component type="specular" value="0.3 0.3 0.3 0.5" />
+        </appearance>
+		<appearance id="azul" shininess="1.0" textureref="azul" >
+               <component type="ambient" value="0.3 0.3 0.3 0.5" />
+               <component type="diffuse" value="0.5 0.5 0.5 0.5" />
+               <component type="specular" value="0.3 0.3 0.3 0.5" />
+        </appearance>		
+    </appearances>
+
+    <!-- bloco do grafo; "rootid" identifica o no de raiz -->
+    <graph rootid="s1" >
+
+        <!-- tem de existir, pelo menos, um bloco "node" -->
+        <node id="s1">
+            <!-- bloco "transforms" obrigatorio -->
+            <transforms>
+                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
+                <!-- ex: bloco transforms pode ficar sem conteudo -->
+                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
+                <!-- ex: bloco transforms pode ser R,S,T,S -->
+				<!--<transform type="translate" to="1.0 1.0 0.0" />-->
+            </transforms>
+          
+            <!-- declaracao da aparencia a utilizar -->
+            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
+
+ 
+                              
+             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
+             <!-- podem existir ambos -->
+
+             <!-- bloco "primitives" --> 
+            <primitives>
+                <plane parts=”5” />
+                <patch order=”5” partsU=”5” partsV=”5” compute=”fill”>
+                    <controlpoint x=”1.0” y=”1.0” z=”1.0” />
+                <!-- podem existir varias primitivas -->
+
+                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
+                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
+                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->            
+                <!--<rectangle xy1="1.0 1.0" xy2="2.0 2.0" />-->
+                <!--<triangle xyz1="10.0 10.0 0.0" xyz2="0.0 0.0 0.0" xyz3="2.0 0.0 0.0" />-->
+				<!--<torus inner="0.5" outer="2" slices="10" loops="10" />-->
+			     </patch>	
+             </primitives>
+               
+             <!-- bloco "descendants" -->
+            <descendants>
+                <!-- Referencia a outros elementos do grafo -->
+                <!-- (repetir o no. de vezes necessario) -->
+                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
+                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
+
+                <noderef id="floor" />
+				<noderef id="leftwall" />
+				<noderef id="rightwall" />
+				<noderef id="basketball" />
+				<noderef id="basketball2" />
+				<noderef id="post" />
+            </descendants>
+        </node>
+		<node id="post" displaylist="true">
+            <!-- bloco "transforms" obrigatorio -->
+            <transforms>
+                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
+                <!-- ex: bloco transforms pode ficar sem conteudo -->
+                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
+                <!-- ex: bloco transforms pode ser R,S,T,S -->
+				<transform type="rotate" axis="x" angle="90.0" />
+				<transform type="translate" to="2.0 -9.0 0.0" />
+            </transforms>
+          
+            <!-- declaracao da aparencia a utilizar -->
+            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
+
+            <appearanceref id="azul" />
+ 
+                              
+             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
+             <!-- podem existir ambos -->
+
+             <!-- bloco "primitives" --> 
+            <primitives>
+                <!-- podem existir varias primitivas -->
+
+                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
+                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
+                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) --> 
+				<cylinder base="0.3" top="0.3" height="8.0" slices="10" stacks="10" />
+             </primitives>
+               
+             <!-- bloco "descendants" -->
+            <descendants>
+                <!-- Referencia a outros elementos do grafo -->
+                <!-- (repetir o no. de vezes necessario) -->
+                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
+                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
+				<noderef id="aro" />
+            </descendants>
+        </node>
+		<node id="aro" displaylist="true">
+            <!-- bloco "transforms" obrigatorio -->
+            <transforms>
+                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
+                <!-- ex: bloco transforms pode ficar sem conteudo -->
+                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
+                <!-- ex: bloco transforms pode ser R,S,T,S -->
+				<transform type="translate" to="2.0 0.0 8.0" />
+            </transforms>
+          
+            <!-- declaracao da aparencia a utilizar -->
+            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
+
+            <appearanceref id="inherit" />
+ 
+                              
+             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
+             <!-- podem existir ambos -->
+
+             <!-- bloco "primitives" --> 
+            <primitives>
+                <!-- podem existir varias primitivas -->
+
+                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
+                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
+                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) --> 
+				<torus inner="0.25" outer="1.5" slices="15" loops="15" />
+             </primitives>
+               
+             <!-- bloco "descendants" -->
+            <descendants>
+                <!-- Referencia a outros elementos do grafo -->
+                <!-- (repetir o no. de vezes necessario) -->
+                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
+                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
+            </descendants>
+        </node>
+		<node id="basketball" displaylist="true">
+            <!-- bloco "transforms" obrigatorio -->
+            <transforms>
+                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
+                <!-- ex: bloco transforms pode ficar sem conteudo -->
+                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
+                <!-- ex: bloco transforms pode ser R,S,T,S -->
+				<!--<transform type="rotate" axis="z" angle="90.0" />-->
+				<transform type="translate" to="3.5 4.5 3.5" />
+            </transforms>
+          
+            <!-- declaracao da aparencia a utilizar -->
+            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
+
+            <appearanceref id="basket" />
+ 
+                              
+             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
+             <!-- podem existir ambos -->
+
+             <!-- bloco "primitives" --> 
+            <primitives>
+                <!-- podem existir varias primitivas -->
+
+                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
+                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
+                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->
+				<sphere radius="1" slices="20" stacks="20" /> 
+             </primitives>
+               
+             <!-- bloco "descendants" -->
+            <descendants>
+                <!-- Referencia a outros elementos do grafo -->
+                <!-- (repetir o no. de vezes necessario) -->
+                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
+                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
+            </descendants>
+        </node>
+		<node id="basketball2">
+            <!-- bloco "transforms" obrigatorio -->
+            <transforms>
+                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
+                <!-- ex: bloco transforms pode ficar sem conteudo -->
+                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
+                <!-- ex: bloco transforms pode ser R,S,T,S -->
+				<!--<transform type="rotate" axis="z" angle="90.0" />-->
+				<transform type="translate" to="3 9 8" />
+            </transforms>
+          
+            <!-- declaracao da aparencia a utilizar -->
+            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
+
+            <appearanceref id="basket" />
+ 
+                              
+             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
+             <!-- podem existir ambos -->
+
+             <!-- bloco "primitives" --> 
+            <primitives>
+                <!-- podem existir varias primitivas -->
+
+                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
+                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
+                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->
+				<sphere radius="1" slices="20" stacks="20" /> 
+             </primitives>
+               
+             <!-- bloco "descendants" -->
+            <descendants>
+                <!-- Referencia a outros elementos do grafo -->
+                <!-- (repetir o no. de vezes necessario) -->
+                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
+                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
+            </descendants>
+        </node>
+		
+		<node id="leftwall">
+            <!-- bloco "transforms" obrigatorio -->
+            <transforms>
+                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
+                <!-- ex: bloco transforms pode ficar sem conteudo -->
+                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
+                <!-- ex: bloco transforms pode ser R,S,T,S -->
+				<!--<transform type="rotate" axis="z" angle="90.0" />-->
+				<transform type="translate" to="0.0 0.0 16.0" />
+				<transform type="rotate" axis="y" angle="270.0"/>
+            </transforms>
+          
+            <!-- declaracao da aparencia a utilizar -->
+            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
+
+            <appearanceref id="wall" />
+ 
+                              
+             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
+             <!-- podem existir ambos -->
+
+             <!-- bloco "primitives" --> 
+            <primitives>
+                <!-- podem existir varias primitivas -->
+
+                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
+                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
+                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->            
+                <rectangle xy1="0.0 0.0" xy2="16.0 8.0" />
+				<!-- <rectangle xy1="5.0 5.0" xy2="7.0 7.0" />
+				<cylinder base="3.0" top="6.0" height="5.0" slices="5" stacks="5" />
+				<sphere radius="5.0" slices="10" stacks="6" /> -->
+             </primitives>
+               
+             <!-- bloco "descendants" -->
+            <descendants>
+                <!-- Referencia a outros elementos do grafo -->
+                <!-- (repetir o no. de vezes necessario) -->
+                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
+                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
+            </descendants>
+        </node>
+		<node id="rightwall">
+            <!-- bloco "transforms" obrigatorio -->
+            <transforms>
+                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
+                <!-- ex: bloco transforms pode ficar sem conteudo -->
+                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
+                <!-- ex: bloco transforms pode ser R,S,T,S -->
+            </transforms>
+          
+            <!-- declaracao da aparencia a utilizar -->
+            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
+
+            <appearanceref id="floor" />
+ 
+                              
+             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
+             <!-- podem existir ambos -->
+
+             <!-- bloco "primitives" --> 
+            <primitives>
+                <!-- podem existir varias primitivas -->
+
+                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
+                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
+                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->            
+                <rectangle xy1="0.0 0.0" xy2="16.0 8.0" />
+                
+				<!-- <rectangle xy1="5.0 5.0" xy2="7.0 7.0" />
+				<cylinder base="3.0" top="6.0" height="5.0" slices="5" stacks="5" />
+				<sphere radius="5.0" slices="10" stacks="6" /> -->
+				
+             </primitives>
+               
+             <!-- bloco "descendants" -->
+            <descendants>
+                <!-- Referencia a outros elementos do grafo -->
+                <!-- (repetir o no. de vezes necessario) -->
+                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
+                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
+            </descendants>
+        </node>
+
+    </graph>
+</anf>
