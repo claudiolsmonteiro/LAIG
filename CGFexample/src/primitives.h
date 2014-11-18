@@ -1,9 +1,14 @@
 #ifndef _primitives_h_
 #define _primitives_h_
 
+
 #include <stdio.h>
+#include <vector>
 #include "CGFapplication.h"
+#include "CGFappearance.h"
 #include "myTexture.h"
+#include "CGFshader.h"
+
 
 class Point{
 public:
@@ -87,6 +92,72 @@ private:
 	int slices, loops;
 };
 
+class Plane
+{
+public:
+    Plane(void);
+    Plane(int);
+    ~Plane(void);
+    void draw();
+private:
+    int _numDivisions; // Number of triangles that constitute rows/columns
+};
+
+class Patch
+{
+public:
+    Patch(void);
+    Patch(int order, int partsU,int partsV,char *compute, std::vector<Point> vp);
+    ~Patch(void);
+    void draw();
+private:
+    int order,partsU,partsV,npoints;
+    char * compute;
+	std::vector<Point> controlPoints;
+};
+class Vehicle
+{
+public:
+    Vehicle(void);
+    ~Vehicle(void);
+    void draw();
+	void drawUpperBody();
+	void drawHead();
+private:
+	CGFappearance *ovniBodyTex;
+	CGFappearance *ovniHeadTex;
+};
+
+class FlagShader : public CGFshader {
+public:
+	FlagShader(char * app);
+	~FlagShader();
+	virtual void bind();
+	virtual void unbind();
+	void setScale(float s);
+	float normScale;
+
+private:
+	CGFtexture * baseTexture;
+	GLint baseImageLoc;
+
+	GLint scaleLoc;
+};
+
+class Flag : Plane{
+public:
+	Flag();
+	Flag(char * texture);
+    ~Flag(void);
+    void draw();
+private:
+	FlagShader* fshader;
+    string texture;
+};
+
+
+
+
 class Primitive{
 public:
     Primitive(Rectangle r);
@@ -94,12 +165,21 @@ public:
 	Primitive(Cylinder c);
 	Primitive(Sphere s);
 	Primitive(Torus t);
+    Primitive(Plane p);
+    Primitive(Patch pt);
+	Primitive(Vehicle v);
+	Primitive(Flag s);
 	Rectangle getRectangle();
 	Triangle getTriangle();
 	Cylinder getCylinder();
 	Sphere getSphere();
 	Torus getTorus();
-	char *getType();
+    Plane getPlane();
+    Patch getPatch();
+	Vehicle getVehicle();
+	Flag getFlag();
+	string getType();
+	void draw(int texS, int texL);
     ~Primitive();
 private:
 	Rectangle rectangle;
@@ -107,7 +187,11 @@ private:
 	Cylinder cylinder;
 	Sphere sphere;
 	Torus torus;
-	char *type;
+    Plane plane;
+    Patch patch;
+	Vehicle vehicle;
+	Flag flag;
+	string type;
 };
 
 #endif

@@ -1,12 +1,13 @@
 #ifndef _ANFParser_H_
 #define _ANFParser_H_
 
+#include "SceneGraph.h"
 #include "tinyxml.h"
 #include "CGFapplication.h"
 #include "myLight.h"
 #include "myTexture.h"
-#include "SceneGraph.h"
 #include "myAppearance.h"
+#include "Animation.h"
 #include <map>
 
 class ANFParser
@@ -43,6 +44,7 @@ protected:
 	TiXmlElement* texturesElement;
 	TiXmlElement* appearancesElement;
 	TiXmlElement* graphElement;
+	TiXmlElement* animationElement;
 
     char *drawing_mode,*drawing_shading,*culling_order,*culling_face,*initial_camera;
     float global_background[4],global_ambient[4];
@@ -53,6 +55,7 @@ protected:
     vector<CGFcamera>cameras;
     vector<myTexture>textures;
     vector<myAppearance>appearances;
+	map<string,Animation>animations;
 
 	SceneGraph graph;
     

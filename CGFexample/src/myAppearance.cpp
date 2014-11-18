@@ -1,17 +1,20 @@
 #include "myAppearance.h"
 
 myAppearance::myAppearance(){
+	this->texRef = "";
 }
 
-myAppearance::myAppearance(char *n, float s): name(n), shininess(s){
-	this->texRef = NULL;
+myAppearance::myAppearance(char *n, float s): shininess(s){
+	string str(n);
+	this->name = str;
+	this->texRef = "";
 }
 
-char *myAppearance::getName(){
+string myAppearance::getName(){
     return this->name;
 }
 
-char *myAppearance::getTexRef(){
+string myAppearance::getTexRef(){
     return this->texRef;
 }
 
@@ -37,7 +40,8 @@ void myAppearance::setSpecular(float *spec){
 }
 
 void myAppearance::setTexRef(char *tf){
-    this->texRef = tf;
+	string s(tf);
+    this->texRef = s;
 }
 
 float *myAppearance::getAmbient(){

@@ -1,5 +1,5 @@
-#include "Perspective.h"
 #include "ANFParser.h"
+#include "Perspective.h"
 #include <string.h>
 #include "Orthocamera.h"
 
@@ -35,6 +35,7 @@ ANFParser::ANFParser(char *filename)
 	texturesElement =  anfElement->FirstChildElement( "textures" );
 	appearancesElement =  anfElement->FirstChildElement( "appearances" );
 	graphElement =  anfElement->FirstChildElement( "graph" );
+	animationElement = anfElement->FirstChildElement("animations");
 	lightid = 1;
 
 	if (globalsElement == NULL)
@@ -466,6 +467,65 @@ ANFParser::ANFParser(char *filename)
 				appearanceElement = appearanceElement->NextSiblingElement("appearance");
 			}
 		}
+		if(animationElement == NULL)
+			printf("Animation block not found!\n");
+		else {
+			TiXmlElement* aElement=animationElement->FirstChildElement("animation");
+			while (aElement)
+			{
+				char *id = NULL,*type,*center;
+				float span,controlpointx,controlpointy,controlpointz;
+				float centerx,centery,centerz,radius,startang,rotang;
+				id=(char *) aElement->Attribute("id");
+				printf("animation id: %s\n",id);
+				if (aElement->QueryFloatAttribute("span",&span)==TIXML_SUCCESS ){
+				}
+				else{
+					printf("Invalid span. 10 will be taken for angle value.");
+					span = 10.0;
+				}
+				printf("SPAN: %f\n",span);
+				type=(char *) aElement->Attribute("type");
+				printf("animation type = %s\n",type);
+				if(strcmp(type,"linear") == 0) {
+					std::vector<Point> vecP;
+					TiXmlElement *controlpoint=aElement->FirstChildElement("controlpoint");
+					while(controlpoint) {
+						if (controlpoint->QueryFloatAttribute("xx",&controlpointx)==TIXML_SUCCESS &&
+							controlpoint->QueryFloatAttribute("yy",&controlpointy)==TIXML_SUCCESS &&
+							controlpoint->QueryFloatAttribute("zz",&controlpointz)==TIXML_SUCCESS)
+							printf("CONTROL Point X: %f, Y: %f, Z: %f \n",controlpointx,controlpointy,controlpointz);
+                            
+						Point p(controlpointx, controlpointy, controlpointz);
+						vecP.push_back(p);
+						
+						controlpoint = controlpoint->NextSiblingElement("controlpoint");
+					}
+					LinearAnimation *la = new LinearAnimation(id,span,vecP);
+					Animation *a = new Animation(*la);
+					string nome(id);
+					animations[nome]= *a;
+				}
+				else if(strcmp(type,"circular") == 0) {
+					center=(char *) aElement->Attribute("center");
+					if(center && sscanf(center,"%f %f %f",&centerx, &centery,&centerz)==3)
+						{
+						printf("Center (XYZ): %f %f %f %f\n",centerx, centery,centerz);
+					}
+					else{
+						printf("Center values. 0 0 0 will be taken for centerx,centery,centerz\n");
+						centerx = 0;
+						centery = 0;
+						centerz = 0;
+					}
+					if (aElement->QueryFloatAttribute("radius",&radius)==TIXML_SUCCESS &&
+							aElement->QueryFloatAttribute("startang",&startang)==TIXML_SUCCESS &&
+							aElement->QueryFloatAttribute("rotang",&rotang)==TIXML_SUCCESS)
+							printf("Radius: %f, Startang: %f, Rotang: %f \n",radius,startang,rotang);
+				}
+				aElement = animationElement->NextSiblingElement("animation");
+			}
+		}
 		if (graphElement == NULL)
 			printf("Graph block not found!\n");
 		else
@@ -489,7 +549,14 @@ ANFParser::ANFParser(char *filename)
 					id = "inv";
 				}
 				printf("node id: %s\n",id);
-				Node *newNode = new Node(id);
+				bool displaylist;
+				if(node->QueryBoolAttribute("displaylist",&displaylist)==TIXML_SUCCESS){
+					printf("Displaylist : %d\n",displaylist);
+				}
+                else
+                    displaylist= false;
+
+				Node *newNode = new Node(id,displaylist);
 
 				TiXmlElement *transforms=node->FirstChildElement("transforms");
 				if(transforms){
@@ -533,11 +600,7 @@ ANFParser::ANFParser(char *filename)
 							transform.push_back(0);
 							transform.push_back(0);
 							transform.push_back(1);
-							
-							/*transform.push_back(0);
-							transform.push_back(x);
-							transform.push_back(y);
-							transform.push_back(z);*/
+
 						}
 						else if(strcmp(type,"rotate") == 0) {
 							char *axis;
@@ -556,14 +619,7 @@ ANFParser::ANFParser(char *filename)
 								angle = 0;
 							}
 							angle = pi * angle /180;
-							/*transform.push_back(1);
-							transform.push_back(angle);
-								if(strcmp(axis,"x"))
-								transform.push_back(0);
-							else if(strcmp(axis,"y"))
-								transform.push_back(1);
-							else if(strcmp(axis,"z"))
-								transform.push_back(2);*/																												
+																											
 							if(strcmp(axis,"z") == 0){
 								transform.push_back(cos(angle));
 								transform.push_back(sin(angle));
@@ -651,10 +707,7 @@ ANFParser::ANFParser(char *filename)
 							transform.push_back(0);
 							transform.push_back(0);
 							transform.push_back(1); 
-							/*transform.push_back(2);
-							transform.push_back(x);
-							transform.push_back(y);
-							transform.push_back(z);*/
+
 						}
 						newNode->addTransform(transform);
 						transformElement=transformElement->NextSiblingElement();
@@ -804,7 +857,69 @@ ANFParser::ANFParser(char *filename)
 
 						torus = torus->NextSiblingElement("torus");
 					}
+                    TiXmlElement *plane=primitives->FirstChildElement("plane");
+                    while(plane){
+                        int parts;
+                        if (plane->QueryIntAttribute("parts",&parts)==TIXML_SUCCESS);
+                        else
+                            parts= 10;
+						    printf("Plane parts: %d \n",parts);
+                        Plane *newPlane = new Plane(parts);
+                        Primitive *newPrimitive = new Primitive(*newPlane);
+                        newNode->addPrimitive(*newPrimitive);
+                        plane = plane->NextSiblingElement("plane");
+                    }
+                    TiXmlElement *patch=primitives->FirstChildElement("patch");
+                    while(patch){
+                        int order, partsV,partsU;
+                        char *compute;
+                        float controlpointx,controlpointy,controlpointz;
+                        if (patch->QueryIntAttribute("order",&order)==TIXML_SUCCESS && patch->QueryIntAttribute("partsU",&partsU)==TIXML_SUCCESS && patch->QueryIntAttribute("partsV",&partsV)==TIXML_SUCCESS)
+                            printf("Patch order: %d partsU: %d partsV: %d ",order,partsU,partsV);
+                        
+                        compute=(char *) patch->Attribute("compute");
+                        if(!compute){
+                            printf("Invalid compute value. fill value will be taken for node id.\n");
+                            id = "fill";
+                        }
+						std::vector<Point> vecP;
+                        TiXmlElement *controlpoint=patch->FirstChildElement("controlpoint");
+                        while(controlpoint) {
+                            if (controlpoint->QueryFloatAttribute("x",&controlpointx)==TIXML_SUCCESS &&
+                                controlpoint->QueryFloatAttribute("y",&controlpointy)==TIXML_SUCCESS &&
+                                controlpoint->QueryFloatAttribute("z",&controlpointz)==TIXML_SUCCESS)
+                                printf("CONTROL Point X: %f, Y: %f, Z: %f \n",controlpointx,controlpointy,controlpointz);
+                            
+							Point p(controlpointx, controlpointy, controlpointz);
+							vecP.push_back(p);
+                            controlpoint = controlpoint->NextSiblingElement("controlpoint");
+                        }
+                        
+                        Patch *newPatch = new Patch(order, partsU, partsV, compute,vecP);
+                        
+                        Primitive *newPrimitive = new Primitive(*newPatch);
+                        newNode->addPrimitive(*newPrimitive);
+                        patch = patch->NextSiblingElement("patch");
+                    }
+					TiXmlElement *vehicle=primitives->FirstChildElement("vehicle");
+                    while(vehicle){
+                        Vehicle *newVehicle = new Vehicle();
+                        Primitive *newPrimitive = new Primitive(*newVehicle);
+                        newNode->addPrimitive(*newPrimitive);
+                        vehicle = vehicle->NextSiblingElement("vehicle");
+                    }
+					TiXmlElement *flag=primitives->FirstChildElement("flag");
+                    while(flag){
+                        char * texture;
+						texture=(char *) flag->Attribute("texture");
+						printf("Flag texture: %s. \n",texture);
+                        Flag *newFlag = new Flag(texture);
+                        Primitive *newPrimitive = new Primitive(*newFlag);
+                        newNode->addPrimitive(*newPrimitive);
+                        flag = flag->NextSiblingElement("flag");
+                    }
 				}
+
 				TiXmlElement *descendants=node->FirstChildElement("descendants");
 				if(descendants != NULL) {
 					TiXmlElement *noderef=descendants->FirstChildElement("noderef");

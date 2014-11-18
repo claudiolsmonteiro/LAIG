@@ -17,14 +17,14 @@ public:
 	myTexture();
     myTexture(char *n);
     myTexture(char *n, char *f, float s, float t);
-    char *getName();
-	char *getFile();
+    string getName();
+	string getFile();
 	float getSLenght();
 	float getTLenght();
     ~myTexture();
     
 private:
-    char *name, *file;
+    string name, file;
 	float sLenght, tLenght;
 };
 #endif /* defined(__CGFExample__myTexture__) */

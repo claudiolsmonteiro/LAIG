@@ -11,7 +11,25 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\ANFParser.h" />
+    <ClInclude Include="src\Animation.h" />
+    <ClInclude Include="src\DemoScene.h" />
+    <ClInclude Include="src\ExampleObject.h" />
+    <ClInclude Include="src\myAppearance.h" />
+    <ClInclude Include="src\myLight.h" />
+    <ClInclude Include="src\myTexture.h" />
+    <ClInclude Include="src\Orthocamera.h" />
+    <ClInclude Include="src\Perspective.h" />
+    <ClInclude Include="src\primitives.h" />
+    <ClInclude Include="src\SceneGraph.h" />
+    <ClInclude Include="src\tinystr.h" />
+    <ClInclude Include="src\tinyxml.h" />
+    <ClInclude Include="src\TPinterface.h" />
+    <ClInclude Include="src\XMLScene.h" />
+  </ItemGroup>
+  <ItemGroup>
     <ClCompile Include="src\ANFParser.cpp" />
+    <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\DemoScene.cpp" />
     <ClCompile Include="src\ExampleObject.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -28,22 +46,6 @@
     <ClCompile Include="src\tinyxmlparser.cpp" />
     <ClCompile Include="src\TPinterface.cpp" />
     <ClCompile Include="src\XMLScene.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\ANFParser.h" />
-    <ClInclude Include="src\DemoScene.h" />
-    <ClInclude Include="src\ExampleObject.h" />
-    <ClInclude Include="src\myAppearance.h" />
-    <ClInclude Include="src\myLight.h" />
-    <ClInclude Include="src\myTexture.h" />
-    <ClInclude Include="src\Orthocamera.h" />
-    <ClInclude Include="src\Perspective.h" />
-    <ClInclude Include="src\primitives.h" />
-    <ClInclude Include="src\SceneGraph.h" />
-    <ClInclude Include="src\tinystr.h" />
-    <ClInclude Include="src\tinyxml.h" />
-    <ClInclude Include="src\TPinterface.h" />
-    <ClInclude Include="src\XMLScene.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{3A4F1E3F-8862-4892-A1EA-E3EE90BE15AB}</ProjectGuid>
@@ -85,6 +87,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
+      <ShowIncludes>true</ShowIncludes>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>

@@ -6,6 +6,8 @@
         <!-- Parametros de desenho -->
         <!-- Valores para mode: "fill" , "line", "point" -->
         <!-- Valores para shading: "flat", "gouraud" ) -->
+        <!-- Valores para shading: "flat", "gouraud" ) -->
+        <!-- Valores para shading: "flat", "gouraud" ) -->
         <drawing mode="line" shading="gouraud" background="0.5 0.5 0.5 0.7" />
  
         <!-- Parametros de culling -->
@@ -93,9 +95,19 @@
                <component type="specular" value="0.3 0.3 0.3 0.5" />
         </appearance>		
     </appearances>
-
+	
+	<animations>
+	<!-- pode não existir qualquer nó “animation” se a cena não tiver animações -->
+	<!-- span é o tempo, em segundos, que a animação deve demorar *
+	<!-- nesta versão do formato ANF, type pode ter o valor “linear” ou "circular" -->
+		  <animation id="a1" span="11.0" type="linear">
+				<controlpoint xx="3.0" yy="1.0" zz="2.0" />
+				<controlpoint xx="4.0" yy="5.0" zz="1.0" />
+		  </animation>
+		  <!--<animation id=”ss” span=”ff” type=”circular” center="ff ff ff" radius="ff" startang="ff" rotang="ff" />-->
+	</animations>
     <!-- bloco do grafo; "rootid" identifica o no de raiz -->
-    <graph rootid="s1">
+    <graph rootid="s1" >
 
         <!-- tem de existir, pelo menos, um bloco "node" -->
         <node id="s1">
@@ -111,13 +123,93 @@
             <!-- declaracao da aparencia a utilizar -->
             <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
 
- 
                               
              <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
              <!-- podem existir ambos -->
 
              <!-- bloco "primitives" --> 
             <primitives>
+                <plane parts="5" />
+				<!--<patch order="2" partsU="5" partsV="5" compute="point">
+                  <controlpoint x="0.5" y="0" z="-0.5" />
+                  <controlpoint x="0.5" y="2" z="0" />
+                  <controlpoint x="0.5" y="0" z="0.5" />
+                  <controlpoint x="0" y="0" z="-0.5" />
+                  <controlpoint x="0" y="2" z="0" />
+                  <controlpoint x="0" y="0" z="0.5" />
+                  <controlpoint x="-0.5"  y="0" z="-0.5" />
+                  <controlpoint x="-0.5" y="2" z="0" />
+                  <controlpoint x="-0.5"  y="0" z="0.5" />
+				</patch>-->
+				<!--<patch order="3" partsU="6" partsV="6" compute="fill">
+				<controlpoint x="0.0" y="0.0" z="-6.0" />
+				<controlpoint x="0.0" y="-6.0" z="-2.0" />
+				<controlpoint x="0.0" y="-6.0" z="2.0" />
+				<controlpoint x="0.0" y="0.0" z="6.0" />
+				
+				<controlpoint x="0.0" y="0.0" z="-6.0" />
+				<controlpoint x="-1.0" y="-1.0" z="-2.0" />
+				<controlpoint x="-1.0" y="-1.0" z="2.0" />
+				<controlpoint x="0.0" y="0.0" z="6.0" />
+				
+				<controlpoint x="0.0" y="0.0" z="-6.0" />
+				<controlpoint x="-1.0" y="1.0" z="-2.0" />
+				<controlpoint x="-1.0" y="1.0" z="2.0" />
+				<controlpoint x="0.0" y="0.0" z="6.0" />
+				
+				<controlpoint x="0.0" y="0.0" z="-6.0" />
+				<controlpoint x="0.0" y="6.0" z="-2.0" />
+				<controlpoint x="0.0" y="6.0" z="2.0" />
+				<controlpoint x="0.0" y="0.0" z="6.0" />
+				</patch>
+				
+				<patch order="3" partsU="6" partsV="6" compute="fill">
+				<controlpoint x="0.0" y="0.0" z="6.0" />
+				<controlpoint x="0.0" y="6.0" z="2.0" />
+				<controlpoint x="0.0" y="6.0" z="-2.0" />
+				<controlpoint x="0.0" y="0.0" z="-6.0" />
+				
+				<controlpoint x="0.0" y="0.0" z="6.0" />
+				<controlpoint x="1.0" y="1.0" z="2.0" />
+				<controlpoint x="1.0" y="1.0" z="-2.0" />
+				<controlpoint x="0.0" y="0.0" z="-6.0" />
+				
+				<controlpoint x="0.0" y="0.0" z="6.0" />
+				<controlpoint x="1.0" y="-1.0" z="2.0" />
+				<controlpoint x="1.0" y="-1.0" z="-2.0" />
+				<controlpoint x="0.0" y="0.0" z="-6.0" />
+				
+				<controlpoint x="0.0" y="0.0" z="6.0" />
+				<controlpoint x="0.0" y="-6.0" z="2.0" />
+				<controlpoint x="0.0" y="-6.0" z="-2.0" />
+				<controlpoint x="0.0" y="0.0" z="-6.0" />
+				
+				</patch>
+				
+				<patch order="3" partsU="6" partsV="6" compute="fill">
+				<controlpoint x="0.0" y="0.0" z="-2.0" />
+				<controlpoint x="0.0" y="-2.0" z="-1.0" />
+				<controlpoint x="0.0" y="-2.0" z="1.0" />
+				<controlpoint x="0.0" y="0.0" z="2.0" />
+				
+				<controlpoint x="0.0" y="0.0" z="-2.0" />
+				<controlpoint x="-4.0" y="-1.0" z="-1.0" />
+				<controlpoint x="-4.0" y="-1.0" z="1.0" />
+				<controlpoint x="0.0" y="0.0" z="2.0" />
+				
+				<controlpoint x="0.0" y="0.0" z="-2.0" />
+				<controlpoint x="-4.0" y="1.0" z="-1.0" />
+				<controlpoint x="-4.0" y="1.0" z="1.0" />
+				<controlpoint x="0.0" y="0.0" z="2.0" />
+				
+				<controlpoint x="0.0" y="0.0" z="-2.0" />
+				<controlpoint x="0.0" y="2.0" z="-1.0" />
+				<controlpoint x="0.0" y="2.0" z="1.0" />
+				<controlpoint x="0.0" y="0.0" z="2.0" />
+				</patch>-->
+				
+				<vehicle />
+				
                 <!-- podem existir varias primitivas -->
 
                 <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
@@ -126,7 +218,7 @@
                 <!--<rectangle xy1="1.0 1.0" xy2="2.0 2.0" />-->
                 <!--<triangle xyz1="10.0 10.0 0.0" xyz2="0.0 0.0 0.0" xyz3="2.0 0.0 0.0" />-->
 				<!--<torus inner="0.5" outer="2" slices="10" loops="10" />-->
-				
+			<flag texture="flag.jpg" />
              </primitives>
                
              <!-- bloco "descendants" -->
@@ -136,16 +228,11 @@
                 <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
                 <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
 
-                <noderef id="floor" />
-				<noderef id="leftwall" />
-				<noderef id="rightwall" />
-				<noderef id="table" />
-				<noderef id="basketball" />
-				<noderef id="basketball2" />
 				<noderef id="post" />
+				
             </descendants>
         </node>
-		<node id="post">
+		<node id="post" displaylist="true">
             <!-- bloco "transforms" obrigatorio -->
             <transforms>
                 <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
@@ -221,631 +308,7 @@
                 <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
             </descendants>
         </node>
-		<node id="basketball">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<!--<transform type="rotate" axis="z" angle="90.0" />-->
-				<transform type="translate" to="3.5 4.5 3.5" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
+		
 
-            <appearanceref id="basket" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->
-				<sphere radius="1" slices="20" stacks="20" /> 
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="basketball2">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<!--<transform type="rotate" axis="z" angle="90.0" />-->
-				<transform type="translate" to="3 9 8" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="basket" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->
-				<sphere radius="1" slices="20" stacks="20" /> 
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="floor">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<!--<transform type="rotate" axis="z" angle="90.0" />-->
-				<transform type="translate" to="0.0 0.0 16.0" />
-				<transform type="rotate" axis="x" angle="90.0"/>
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="floor" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->            
-                <rectangle xy1="0.0 0.0" xy2="16.0 16.0" />
-				<!-- <rectangle xy1="5.0 5.0" xy2="7.0 7.0" />
-				<cylinder base="3.0" top="6.0" height="5.0" slices="5" stacks="5" />
-				<sphere radius="5.0" slices="10" stacks="6" /> -->
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="leftwall">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<!--<transform type="rotate" axis="z" angle="90.0" />-->
-				<transform type="translate" to="0.0 0.0 16.0" />
-				<transform type="rotate" axis="y" angle="270.0"/>
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="wall" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->            
-                <rectangle xy1="0.0 0.0" xy2="16.0 8.0" />
-				<!-- <rectangle xy1="5.0 5.0" xy2="7.0 7.0" />
-				<cylinder base="3.0" top="6.0" height="5.0" slices="5" stacks="5" />
-				<sphere radius="5.0" slices="10" stacks="6" /> -->
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="rightwall">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="wall" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->            
-                <rectangle xy1="0.0 0.0" xy2="16.0 8.0" />
-				<!-- <rectangle xy1="5.0 5.0" xy2="7.0 7.0" />
-				<cylinder base="3.0" top="6.0" height="5.0" slices="5" stacks="5" />
-				<sphere radius="5.0" slices="10" stacks="6" /> -->
-				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="table">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<transform type="rotate" axis="x" angle="270.0" />
-				<transform type="translate" to="3.0 3.0 -3.0" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="table" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->            
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-				<noderef id="top1" />
-				<noderef id="top2" />
-				<noderef id="top3" />
-				<noderef id="top4" />
-				<noderef id="top5" />
-				<noderef id="top6" />
-				<noderef id="leg1" />
-				<noderef id="leg2" />
-				<noderef id="leg3" />
-				<noderef id="leg4" />
-            </descendants>
-        </node>
-		<node id="top1">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<transform type="translate" to="-0.5 3.5 -0.5" />
-				<transform type="rotate" axis="x" angle="180.0" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<rectangle xy1="0.0 0.0" xy2="6.0 4.0" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="top2">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<transform type="translate" to="-0.5 -0.5 0.0" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<rectangle xy1="0.0 0.0" xy2="6.0 4.0" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="top3">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<transform type="translate" to="-0.5 3.5 0.0" />
-				<transform type="rotate" axis="x" angle="90.0" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<rectangle xy1="0.0 0.0" xy2="6.0 0.5" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="top4">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<transform type="translate" to="-0.5 -0.5 -0.5" />
-				<transform type="rotate" axis="x" angle="270.0" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<rectangle xy1="0.0 0.0" xy2="6.0 0.5" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="top5">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<transform type="translate" to="-0.5 -0.5 -0.5" />
-				<transform type="rotate" axis="y" angle="90" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<rectangle xy1="0.0 0.0" xy2="0.5 4.0" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="top6">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<transform type="translate" to="5.5 -0.5 0.0" />
-				<transform type="rotate" axis="y" angle="270" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<rectangle xy1="0.0 0.0" xy2="0.5 4.0" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="leg1">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<!--<transform type="rotate" axis="z" angle="90.0" />-->
-				<transform type="translate" to="0.0 0.0 0.0" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<cylinder base="0.5" top ="0.5" height ="3.0" slices ="4" stacks="3" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="leg2">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<!--<transform type="rotate" axis="z" angle="90.0" />-->
-				<transform type="translate" to="0.0 3.0 0.0" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<cylinder base="0.5" top ="0.5" height ="3.0" slices ="4" stacks="3" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="leg3">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<!--<transform type="rotate" axis="z" angle="90.0" />-->
-				<transform type="translate" to="5.0 0.0 0.0" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<cylinder base="0.5" top ="0.5" height ="3.0" slices ="4" stacks="3" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
-		<node id="leg4">
-            <!-- bloco "transforms" obrigatorio -->
-            <transforms>
-                <!-- deve conter transformacoes explicitas usando as instrucoes seguintes sem limite nem ordem -->
-                <!-- ex: bloco transforms pode ficar sem conteudo -->
-                <!-- ex: bloco transforms pode ser R,T (nao tem S) -->
-                <!-- ex: bloco transforms pode ser R,S,T,S -->
-				<!--<transform type="rotate" axis="z" angle="90.0" />-->
-				<transform type="translate" to="5.0 3.0 0.0" />
-            </transforms>
-          
-            <!-- declaracao da aparencia a utilizar -->
-            <!-- se id="inherit", o no' mantem (herda) a aparencia do "pai" -->
-
-            <appearanceref id="inherit" />
- 
-                              
-             <!-- conteudo do no; deve existir pelo menos um bloco "primitives" ou um "descendants" -->
-             <!-- podem existir ambos -->
-
-             <!-- bloco "primitives" --> 
-            <primitives>
-                <!-- podem existir varias primitivas -->
-
-                <!-- Primitivas : rectangle, triangle, cylinder, sphere, torus -->
-                <!--   Comandos a serem interpretados genericamente como em OpenGL/GLUT, exceto -->
-                <!--   o cilindro, que deve adicionalmente ter topos ou tampas) -->  
-				<cylinder base="0.5" top ="0.5" height ="3.0" slices ="4" stacks="3" />				
-             </primitives>
-               
-             <!-- bloco "descendants" -->
-            <descendants>
-                <!-- Referencia a outros elementos do grafo -->
-                <!-- (repetir o no. de vezes necessario) -->
-                <!-- LEMBRANDO: qualquer no' pode ser referenciado previamente 'a sua declaracao; isto -->
-                <!--            e', a ordem pela qual os nos sao declarados e' irrelevante -->
-            </descendants>
-        </node>
     </graph>
 </anf>

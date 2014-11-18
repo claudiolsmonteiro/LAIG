@@ -6,9 +6,10 @@
 #include <iostream>
 #include <exception>
 
+#include "DemoScene.h"
 #include "CGFapplication.h"
 #include "ANFParser.h"
-#include "DemoScene.h"
+
 #include "TPinterface.h"
 using std::cout;
 using std::exception;

@@ -4,12 +4,14 @@
 #include <stdio.h>
 #include "CGFapplication.h"
 
+using namespace std;
+
 class myAppearance{
 public:
 	myAppearance();
     myAppearance(char *n, float s);
-    char *getName();
-	char *getTexRef();
+    string getName();
+	string getTexRef();
 	void setAmbient(float *amb);
 	void setDiffuse(float *dif);
 	void setSpecular(float *spec);
@@ -21,7 +23,7 @@ public:
     ~myAppearance();
     
 private:
-    char *name, *texRef;
+    string name, texRef;
 	float ambient[4], diffuse[4], specular[4], shininess;
 };
 #endif /* defined(__CGFExample__myTexture__) */
