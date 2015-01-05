@@ -32,9 +32,14 @@ parse_input(valida(Arg1, Arg2, Arg3, Arg4), Answer) :-
 
 parse_input(movespossible(Arg1,Arg2,Arg3,Arg4,Arg5),Answer):-
 	movespossible(Arg1,Arg2,Arg3,Arg4,Arg5,Answer).
-
-parser_input(gocheck(Arg1,Arg2,Arg3,Arg4,Arg5),Answer):-
+	
+parse_input(gocheck(Arg1,Arg2,Arg3,Arg4,Arg5),Answer):-
 	gocheck(Arg1,Arg2,Arg3,Arg4,Arg5,Answer).	
+	
+parse_input(range(Arg1,Arg2,Arg3,Arg4),Answer):-
+	range(Arg1,Arg2,Arg3,Arg4,Answer).
+	
+parse_input(quit, ok-bye) :- !.
 
 %verifica se uma peca existe naquele x,y
 valida(Arg1, Arg2,Arg3,Arg4, Answer) :-
@@ -49,20 +54,13 @@ movespossible(Arg1,Arg2,Arg3,Arg4,Arg5,Answer):-
 	validMoves(Arg1,Arg2,Arg3,Arg4,Arg5,Return5),
 	reverseL(Return5, Answer, []).
 
-
-%allMovesPossible(Tabuleiro, 1, 5,'P','B', [], []),
+range(Arg1,Arg2,Arg3,Arg4,Answer):-
+	getRange(Arg1,Arg2,Arg3,Arg4,Answer).
+	
 %verifica o gameover
 gocheck(Arg1,Arg2,Arg3,Arg4,Arg5,Answer):-
-	validMoves(Arg1,Arg2,Arg3,Arg4,Arg5,Return5).
-/*	write('ola'),
-	allMovesPossible(Arg1, Arg2, Arg3,Arg4,Arg5,[],Answer).
-,!,
-	Answer = 'GameOver'.
-	
+	allMovesPossible(Arg1,Arg2,Arg3,Arg4,Arg5,[],[]),!,
+	Answer = 'N'.
 gocheck(Arg1,Arg2,Arg3,Arg4,Arg5,Answer):-
-		write('ola2'),
-	Answer = 'Continua'.
-	*/
+	Answer = 'Y'.		
 	
-	
-parse_input(quit, ok-bye) :- !.

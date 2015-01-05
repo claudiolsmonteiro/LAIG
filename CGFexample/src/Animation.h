@@ -22,7 +22,7 @@ private:
 class LinearAnimation {
 public:
 	LinearAnimation();
-	LinearAnimation(int x, int y);
+	LinearAnimation(int x, int y, int z);
 	LinearAnimation(char *id, float span, std::vector<Point> controlpts);
 	void reset();
 	void update(unsigned long t);

@@ -23,6 +23,8 @@
     <ClInclude Include="src\myTexture.h" />
     <ClInclude Include="src\Orthocamera.h" />
     <ClInclude Include="src\Perspective.h" />
+    <ClInclude Include="src\primitives.h" />
+    <ClInclude Include="src\SceneGraph.h" />
     <ClInclude Include="src\Socket.h" />
     <ClInclude Include="src\tinystr.h" />
     <ClInclude Include="src\tinyxml.h" />
@@ -41,6 +43,8 @@
     <ClCompile Include="src\Perspective.cpp" />
     <ClCompile Include="src\PickInterface.cpp" />
     <ClCompile Include="src\PickScene.cpp" />
+    <ClCompile Include="src\primitives.cpp" />
+    <ClCompile Include="src\SceneGraph.cpp" />
     <ClCompile Include="src\Socket.cpp" />
     <ClCompile Include="src\tinystr.cpp" />
     <ClCompile Include="src\tinyxml.cpp" />

@@ -16,6 +16,7 @@
 void PickScene::init() 
 {
 	parser = new ANFParser("cena.anf");
+	surroundingScene = 0;
 	if (parser->getDrawingMode() == "fill") {
 		drawMode = 0;
 	}
@@ -141,6 +142,8 @@ void PickScene::init()
 		CGFtexture *newTexture = new CGFtexture(parser->getTextures()[i].getFile());
 
 		sceneTextures[parser->getTextures()[i].getName()] = newTexture;
+		texturesSLength[parser->getTextures()[i].getName()] = parser->getTextures()[i].getSLenght();
+		texturesTLength[parser->getTextures()[i].getName()] = parser->getTextures()[i].getTLenght();
 	}
 
 	//declares appearances
@@ -165,7 +168,8 @@ void PickScene::init()
 		if (parser->getAppearances()[it].getTexRef() != ""){
 			newAppearance->setTexture(sceneTextures[parser->getAppearances()[it].getTexRef()]);
 		}
-		sceneAppearances[parser->getAppearances()[it].getName()] = *newAppearance;
+		std::cout << parser->getAppearances()[it].getName() << std::endl;
+		sceneAppearances[parser->getAppearances()[it].getName()] = newAppearance;
 	}
 
 	unsigned long updatePeriod = 50;
@@ -176,14 +180,12 @@ void PickScene::init()
 
 	obj = new BoardObject();
 
-	materialAppearance=new CGFappearance();
-	materialAppearance->setTexture("azul.jpg");
+	materialAppearance=sceneAppearances["Tabuleiro"];
 
-	piecesAppearance1=new CGFappearance();
-	piecesAppearance1->setTexture("wall.png");
+	piecesAppearance1=sceneAppearances["Peca1"];
 
-	piecesAppearance2=new CGFappearance();
-	piecesAppearance2->setTexture("mars.jpg");
+	piecesAppearance2=sceneAppearances["Peca2"];
+
 	game = new Game(obj,materialAppearance,piecesAppearance1,piecesAppearance2);
 	game->fillBoard();
 	
@@ -202,8 +204,9 @@ void PickScene::display()
 		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 	else if (drawMode == 2)
 		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	// ---- BEGIN Background, camera and axis setup
 
+	// ---- BEGIN Background, camera and axis setup
+	
 	// Clear image and depth buffer everytime we update the scene
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -216,8 +219,6 @@ void PickScene::display()
 	// Apply transformations corresponding to the camera position relative to the origin
 	CGFscene::activeCamera->applyView();
 
-
-
 	CGFapplication::activeApp->forceRefresh();
 
 	// Draw (and update) light
@@ -227,7 +228,7 @@ void PickScene::display()
 	}
 
 	// Draw axis
-	axis.draw();
+	//axis.draw();
 
 	// ---- END Background, camera and axis setup
 
@@ -243,6 +244,8 @@ void PickScene::display()
 	game->drawBoard();
 	game->drawPieces();
 	glPopMatrix();
+	glPopName();
+	drawScene();
 	//________________________________________________
 
 	// ---- END feature demos
@@ -251,6 +254,38 @@ void PickScene::display()
 	glutSwapBuffers();
 }
 
+void PickScene::drawScene(){
+	std::map<std::string, Node*>::iterator it;
+	for (it=parser->getGraph()->nodes.begin(); it!=parser->getGraph()->nodes.end(); ++it){
+		if(it->first != parser->getGraph()->getRoot()){
+			sceneAppearances[it->second->getAppearance()]->apply();
+			glPushMatrix();
+			glMultMatrixf(it->second->getTransform());
+
+			it->second->getPrimitives()[0].draw(texturesSLength[it->second->getAppearance()],texturesTLength[it->second->getAppearance()]);
+			glPopMatrix();
+		}
+	}
+}
+
+void PickScene::changeScene(int scene){
+	printf("%d\n",scene);
+	if(scene == 0)
+		this->parser = new ANFParser("cena.anf");
+	else if(scene == 1)
+		this->parser = new ANFParser("cena2.anf");
+
+	surroundingScene = scene;
+}
+void PickScene::changediff(int gamediff) {
+	game->setDiff(gamediff);
+}
+void PickScene::changetype(int gametype) {
+	game->setType(gametype);
+}
+void PickScene::gameUndo() {
+	game->undo();
+}
 PickScene::~PickScene()
 {
 	delete(materialAppearance);
@@ -258,3 +293,4 @@ PickScene::~PickScene()
 	delete(game);
 	delete(light0);
 }
+

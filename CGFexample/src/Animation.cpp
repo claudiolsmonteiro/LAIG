@@ -66,10 +66,10 @@ float calcDistance(Point p1, Point p2){
 LinearAnimation::LinearAnimation() {
 
 }
-LinearAnimation::LinearAnimation(int x,int y) {
+LinearAnimation::LinearAnimation(int x,int y, int z) {
 	posX=x;
 	posY=y;
-	posZ=0;
+	posZ=z;
 }
 LinearAnimation::LinearAnimation(char *id, float span,std::vector<Point> controlpts) {
 	std::string n(id);

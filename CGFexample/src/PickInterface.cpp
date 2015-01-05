@@ -96,7 +96,10 @@ void PickInterface::processHits (GLint hits, GLuint buffer[])
 		for (int i=0; i<nselected; i++)
 			printf("%d ",selected[i]);
 		printf("\n");*/
-		((PickScene*) scene)->game->selectPiece(selected[0],selected[1]);
+		if(((PickScene*) scene)->game->currentplayer == PLAYER1 || ((PickScene*) scene)->game->currentplayer == PLAYER2)
+			((PickScene*) scene)->game->selectPiece(selected[0],selected[1]);
+		else if(((PickScene*) scene)->game->currentplayer == COMP1 || ((PickScene*) scene)->game->currentplayer == COMP2)
+			((PickScene*) scene)->game->computerPlay();
 	}
 	else
 		printf("Nothing selected while picking \n");	
@@ -115,14 +118,48 @@ void PickInterface::initGUI()
 	
 	addColumn();
 
-	GLUI_Panel *CameraPanel = addPanel("Cameras", 1);
+	GLUI_Panel *Difficulty = addPanel("Difficulty", 1);
+	GLUI_RadioGroup *difftype = addRadioGroupToPanel(Difficulty,&(((PickScene*) scene)->gamediff),1);
+	addRadioButtonToGroup(difftype, "Easy");
+	addRadioButtonToGroup(difftype, "Medium");
 	/*for(int i = 0; i < ((DemoScene*) scene)->getParser().getCameras().size(); i++) {
 		addCheckboxToPanel(lightPanel, ((DemoScene*) scene)->getParser().getCameras()[i]., NULL, i)
     }*/
+
+	addColumn();
+
+	GLUI_Panel *GameType = addPanel("GameType", 1);
+	GLUI_RadioGroup *gtype = addRadioGroupToPanel(GameType,&(((PickScene*) scene)->gametype),4);
+	addRadioButtonToGroup(gtype, "H/H");
+	addRadioButtonToGroup(gtype, "H/M");
+	addRadioButtonToGroup(gtype, "M/M");
+
+	addColumn();
+
+	GLUI_Panel *Undo = addPanel("Undo", 5);
+	addButtonToPanel(Undo,"Undo",5);
+
+
+
+	addColumn();
+	GLUI_Panel *ScenePanel = addPanel("Scene", 0);
+	GLUI_RadioGroup *surrounding = addRadioGroupToPanel(ScenePanel,&(((PickScene*) scene)->surroundingScene),2);
+	addRadioButtonToGroup(surrounding, "Cena1");
+	addRadioButtonToGroup(surrounding, "Cena2");
+
+
 }
 
 void PickInterface::processGUI(GLUI_Control *ctrl)
 {
 	if(ctrl->user_id == 3)
 		((PickScene*) scene)->drawMode = ctrl->get_int_val();
+	else if(ctrl->user_id == 2)
+		((PickScene*) scene)->changeScene(ctrl->get_int_val());
+	else if(ctrl->user_id == 1) 
+		((PickScene*) scene)->changediff(ctrl->get_int_val());
+	else if(ctrl->user_id == 4) 
+		((PickScene*) scene)->changetype(ctrl->get_int_val());
+	else if(ctrl->user_id == 5) 
+		((PickScene*) scene)->gameUndo();
 }

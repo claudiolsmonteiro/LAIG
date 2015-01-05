@@ -42,7 +42,6 @@ Socket::Socket() {// Initialize Winsock.
 void Socket::envia(string s, int len) {
 	s += ".\n";
 	const char* env = s.c_str();
-	cout << "welelele: " << env << endl;
 	int bytesSent = send(m_socket, env, len, 0);
 	if(bytesSent == SOCKET_ERROR)
 		printf("Client: send() error %ld.\n", WSAGetLastError());
@@ -58,7 +57,6 @@ void Socket::recebe(char *ans) {
 		pos++;
 	}
 	ans[pos] = 0;
-	cout << "prolog answered: " << ans << endl;
 }
 
 void Socket::quit() {

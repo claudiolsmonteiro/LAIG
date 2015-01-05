@@ -8,6 +8,7 @@
 #include "myTexture.h"
 #include "myAppearance.h"
 #include "Animation.h"
+#include "SceneGraph.h"
 #include <map>
 
 class ANFParser
@@ -28,6 +29,8 @@ public:
 	vector<CGFcamera> getCameras();
 	vector<myTexture> getTextures();
 	vector<myAppearance> getAppearances();
+	std::string getFileName();
+	SceneGraph* getGraph();
 
 	~ANFParser();
 
@@ -55,8 +58,9 @@ protected:
     vector<myTexture>textures;
     vector<myAppearance>appearances;
 	map<string,Animation *>animations;
+	std::string filename;
 
-    
+    SceneGraph* graph;
 };
 
 #endif

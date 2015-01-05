@@ -20,16 +20,26 @@ public:
 	void setDrawingMode(int draw);
 	ANFParser getParser();
 	int drawMode;
+	int surroundingScene;
+	int gamediff;
+	int gametype;
 	Game* game;
+	void drawScene();
+	void changeScene(int scene);
+	void changediff(int gamediff);
+	void changetype(int gametype);
+	void gameUndo();
 	~PickScene();
 private:
 	ANFParser *parser;
 	CGFlight* light0;
 	vector<CGFlight *> sceneLights;
-	map<string, CGFtexture *> sceneTextures;
 	vector<char*> lightnames;
 	vector<int>enabledlights;
-	map<string, CGFappearance> sceneAppearances;
+	map<string, CGFtexture*> sceneTextures;
+	map<string, float> texturesSLength;
+	map<string, float> texturesTLength;
+	map<string, CGFappearance*> sceneAppearances;
 	CGFappearance rootAppearance;
 	CGFobject* obj;
 	CGFappearance* materialAppearance;
